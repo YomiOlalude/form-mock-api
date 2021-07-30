@@ -12,6 +12,12 @@ let button = document.querySelector(".btn");
 let username = document.querySelector("#username");
 let password = document.querySelector("#password");
 
+let validatePassword = (password) => {
+    let validLength = password.length >= 4;
+    let hasLetter = /[a-zA-Z]/g.test(password);
+    return hasLetter && validLength
+}
+
 let userLogin = () => {
     fetch("http://localhost:3000/users")
         .then(res => res.json())
@@ -23,7 +29,7 @@ let userLogin = () => {
                 allPasswords.push(user.password)
             };
         
-            if (allUsernames.includes(username.value) && allPasswords.includes(password.value)) {
+            if (allUsernames.includes(username.value) && allPasswords.includes(password.value) && validatePassword(password.value) == true) {
                 for (user of users) {
                     if (user.username == username.value && user.password == password.value) {
                         return document.body.innerHTML = `<center><h1>${user.username} is logged in. Congratulations.</h1></center>`;
