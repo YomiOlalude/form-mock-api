@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "yomi",
+      "password": "olalude"
+    },
+    {
+      "id": 2,
+      "username": "seyi",
+      "password": "akanbi"
+    },
+    {
+      "id": 3,
+      "username": "kemi",
+      "password": "theophilus"
+    },
+    {
+      "id": 4,
+      "username": "bunmi",
+      "password": "ajibola"
+    }
+  ]
+}
