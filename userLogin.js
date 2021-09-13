@@ -12,6 +12,31 @@ let button = document.querySelector(".btn");
 let username = document.querySelector("#username");
 let password = document.querySelector("#password");
 
+let data = [
+    {
+      "id": 1,
+      "username": "yomi",
+      "password": "olalude"
+    },
+    {
+      "id": 2,
+      "username": "seyi",
+      "password": "akanbi"
+    },
+    {
+      "id": 3,
+      "username": "kemi",
+      "password": "theophilus"
+    },
+    {
+      "id": 4,
+      "username": "bunmi",
+      "password": "ajibola"
+    }
+]
+  
+
+
 let validatePassword = (password) => {
     let validLength = password.length >= 4;
     let hasLetter = /[a-zA-Z]/g.test(password);
@@ -19,29 +44,32 @@ let validatePassword = (password) => {
 }
 
 let userLogin = () => {
-    fetch("http://localhost:3000/users")
-        .then(res => res.json())
-        .then(users => {
-            let allUsernames = [];
-            let allPasswords = [];
-            for (user of users) {
-                allUsernames.push(user.username)
-                allPasswords.push(user.password)
-            };
-        
-            if (allUsernames.includes(username.value) && allPasswords.includes(password.value) && validatePassword(password.value) == true) {
-                for (user of users) {
-                    if (user.username == username.value && user.password == password.value) {
-                        return document.body.innerHTML = `<center><h1>${user.username} is logged in. Congratulations.</h1></center>`;
-                    };
-                }
-            } else {
-                alert("Wrong Username/Password Combination. Try Again.");
+    let dataJson = JSON.stringify(data)
+    let users = JSON.parse(dataJson);
+    let allUsernames = [];
+    let allPasswords = [];
+    for (user of users) {
+        allUsernames.push(user.username)
+        allPasswords.push(user.password)
+    };
+            
+    if (allUsernames.includes(username.value) && allPasswords.includes(password.value) && validatePassword(password.value) == true) {
+        for (user of users) {
+            if (user.username == username.value && user.password == password.value) {
+                let str = String(user.username)
+                return document.body.innerHTML = `<center><h1>${str.toUpperCase()} is logged in. Congratulations.</h1></center>`;
             }
-                  
-        })
+            
+            if (allUsernames.indexOf(username.value) != allPasswords.indexOf(password.value)) {
+            alert("Wrong Username/Password Combination. Try Again.");
+            break
+            } 
+        }
+
+    } else {
+        alert("Wrong Username/Password Combination. Try Again.");
+    }
+    
 };
 
 button.addEventListener("click", userLogin);
-
-module.exports = userLogin;
