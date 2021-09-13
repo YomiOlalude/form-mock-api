@@ -48,19 +48,19 @@ let userLogin = () => {
     let users = JSON.parse(dataJson);
     let allUsernames = [];
     let allPasswords = [];
+
     for (user of users) {
         allUsernames.push(user.username)
         allPasswords.push(user.password)
     };
-            
-    if (allUsernames.includes(username.value) && allPasswords.includes(password.value) && validatePassword(password.value) == true) {
+    if (allUsernames.includes(username.value.toLowerCase()) && allPasswords.includes(password.value) && validatePassword(password.value) == true) {
         for (user of users) {
-            if (user.username == username.value && user.password == password.value) {
+            if (user.username == username.value.toLowerCase() && user.password == password.value) {
                 let str = String(user.username)
                 return document.body.innerHTML = `<center><h1>${str.toUpperCase()} is logged in. Congratulations.</h1></center>`;
             }
             
-            if (allUsernames.indexOf(username.value) != allPasswords.indexOf(password.value)) {
+            if (allUsernames.indexOf(username.value.toLowerCase()) != allPasswords.indexOf(password.value)) {
             alert("Wrong Username/Password Combination. Try Again.");
             break
             } 
